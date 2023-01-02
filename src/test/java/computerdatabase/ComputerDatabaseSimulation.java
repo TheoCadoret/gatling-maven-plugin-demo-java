@@ -48,14 +48,6 @@ public class ComputerDatabaseSimulation extends Simulation {
             ).pause(1)
         );
 
-    ChainBuilder getGoogle =
-            // Note how we force the counter name, so we can reuse it
-            repeat(4, "i").on(
-                    exec(
-                            http("Page #{i}")
-                                    .get("http://www.google.com")
-                    ).pause(1)
-            );
     // Note we should be using a feeder here
     // let's demonstrate how we can retry: let's make the request fail randomly and retry a given
     // number of times
@@ -98,12 +90,12 @@ public class ComputerDatabaseSimulation extends Simulation {
                 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:16.0) Gecko/20100101 Firefox/16.0"
             );
 
-    ScenarioBuilder users = scenario("Users").exec(search, browse,getGoogle);
+    ScenarioBuilder users = scenario("Users").exec(search, browse);
     ScenarioBuilder admins = scenario("Admins").exec(search, browse, edit);
 
     {
         setUp(
-            users.injectOpen(rampUsers(10).during(10)),
+            users.injectOpen(rampUsers(10).during(40)),
             admins.injectOpen(rampUsers(2).during(10))
         ).protocols(httpProtocol);
     }
