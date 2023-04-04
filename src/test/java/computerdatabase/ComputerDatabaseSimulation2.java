@@ -18,7 +18,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class ComputerDatabaseSimulation2 extends Simulation {
 
     ChainBuilder search =
-        exec(http("Home "+ System.getenv("vireya")).get("/"));
+        exec(http("Home "+ System.getenv("SUU")).get("/"));
 
     HttpProtocolBuilder httpProtocol =
         http.baseUrl("https://computer-database.gatling.io")
